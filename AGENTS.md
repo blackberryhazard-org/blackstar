@@ -248,6 +248,8 @@ Perubahan yang dilakukan:
 [Tambahkan konteks relevan dan emoji secukupnya]
 ```
 
+Catatan: kirim request sebagai text, bukan json!
+
 ### 14.2 Perbarui MEMORY.md
 
 Catat setiap informasi baru yang diperoleh dari sesi ini ke dalam `MEMORY.md` — termasuk keputusan teknis, pola yang ditemukan, atau hal-hal yang perlu diingat untuk sesi berikutnya.

@@ -15,35 +15,39 @@ async function githubStalk(username) {
 
     return {
       success: true,
-      identity: {
-        id: data.id,
-        username: data.login,
-        name: data.name || "-",
-        avatar: data.avatar_url,
+      data: {
+        identity: {
+          id: data.id,
+          username: data.login,
+          name: data.name || "-",
+          avatar: data.avatar_url,
+        },
+        profile: {
+          bio: data.bio || "-",
+        },
+        stats: {
+          public_repos: data.public_repos,
+          public_gists: data.public_gists,
+          followers: data.followers,
+          following: data.following,
+        },
+        activity: {
+          created_at: data.created_at,
+          updated_at: data.updated_at,
+        },
       },
-      profile: {
-        bio: data.bio || "-",
-      },
-      stats: {
-        public_repos: data.public_repos,
-        public_gists: data.public_gists,
-        followers: data.followers,
-        following: data.following,
-      },
-      activity: {
-        created_at: data.created_at,
-        updated_at: data.updated_at,
-      },
+      message: "Success",
     };
   } catch (error) {
     console.log("GITHUB STALK ERROR:", error.message);
-    return null;
+    return { success: false, data: null, message: error.message };
   }
 }
 
 export async function sendDeveloperInfo(bot, chatId) {
   try {
-    const github = await githubStalk("RIFKIror");
+    const response = await githubStalk("RIFKIror");
+    const github = response.data;
 
     const caption = `
 <blockquote>

@@ -1,18 +1,18 @@
 export const forceSubscribeMiddleware = (newsletterId) => async (ctx, next) => {
-  if (!newsletterId || !ctx.from || !ctx.message) return next();
+  if (!newsletterId || !ctx.from) return next();
 
   // Exclude /start and /help so users can at least see info
-  if (
-    ctx.message.text &&
-    (ctx.message.text.startsWith("/start") ||
-      ctx.message.text.startsWith("/help"))
-  ) {
+  const text = ctx.message?.text || ctx.callbackQuery?.data || "";
+  if (text.startsWith("/start") || text.startsWith("/help")) {
     return next();
   }
 
   try {
     const member = await ctx.telegram.getChatMember(newsletterId, ctx.from.id);
     if (["left", "kicked", "restricted"].includes(member.status)) {
+      if (ctx.callbackQuery) {
+        return ctx.answerCbQuery("To use this bot, you must be subscribed to our newsletter channel.", { show_alert: true });
+      }
       return ctx.reply(
         "✦ Blackstar ✦\n\nTo use this bot, you must be subscribed to our newsletter channel.",
         {
@@ -36,7 +36,8 @@ export const forceSubscribeMiddleware = (newsletterId) => async (ctx, next) => {
 };
 
 export const roleLimitMiddleware = (db, config) => async (ctx, next) => {
-  if (!ctx.message || !ctx.message.text) return next();
+  const text = ctx.message?.text || ctx.callbackQuery?.data;
+  if (!text) return next();
 
   const userId = String(ctx.from.id);
   let user = db.getUser(userId);
@@ -67,14 +68,20 @@ export const roleLimitMiddleware = (db, config) => async (ctx, next) => {
     user,
   };
 
-  // Simple limit check for commands (excluding /start, /topup, /help)
+  // Skip limit check for /start, /topup, /help and basic menu navigation callbacks
+  const isCommand = ctx.message?.text?.startsWith("/");
+  const isActionableCallback = ctx.callbackQuery && !text.startsWith("menu");
+
   if (
-    ctx.message.text.startsWith("/") &&
-    !ctx.message.text.startsWith("/start") &&
-    !ctx.message.text.startsWith("/help") &&
-    !ctx.message.text.startsWith("/topup")
+    (isCommand || isActionableCallback) &&
+    !text.startsWith("/start") &&
+    !text.startsWith("/help") &&
+    !text.startsWith("/topup")
   ) {
     if (!isOwner && !isPartner && !isPremium && user.limit <= 0) {
+      if (ctx.callbackQuery) {
+         return ctx.answerCbQuery("Your limit has been exceeded! Upgrade to premium or topup Sakuranite to continue.", { show_alert: true });
+      }
       return ctx.reply(
         "✦ Blackstar ✦\n\nYour limit has been exceeded! Upgrade to premium or topup Sakuranite to continue.",
       );

@@ -1,7 +1,6 @@
 # Blackstar
 
 ![blackstar banner](https://ik.imagekit.io/vmimm0jfp/blackberryhazard/blackstar.png)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fblackberryhazard-org%2Fblackstar.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fblackberryhazard-org%2Fblackstar?ref=badge_shield)
 
 Blackstar is a WhatsApp & Telegram bot that runs simultaneously in one process, with the aim of making the two bots integrated with each other. 
 
@@ -18,7 +17,7 @@ Blackstar is a WhatsApp & Telegram bot that runs simultaneously in one process, 
 [![Issues](https://img.shields.io/github/issues/indra87g/sakurabot?style=for-the-badge)](https://github.com/indra87g/sakurabot/issues)
 
 [![DeepSource](https://app.deepsource.com/gh/indra87g/sakurabot.svg/?label=active+issues&show_trend=false&token=m7kgoYuFrGoUySJ9diJ7Zwix)](https://app.deepsource.com/gh/indra87g/sakurabot/)
-
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fblackberryhazard-org%2Fblackstar.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fblackberryhazard-org%2Fblackstar?ref=badge_shield)
 </div>
 
 ### 📄 System Requirements

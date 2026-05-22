@@ -12,10 +12,8 @@ export default {
         text,
       });
 
-      const data = await response.json();
-
-      if (!data.status) return m.reply("❌ Failed to get data.");
-      m.reply(data.result);
+      if (!response || !response.status) return m.reply("❌ Failed to get data.");
+      m.reply(response.result);
     } catch (error) {
       console.error(error);
       m.reply("❌ " + error.message);

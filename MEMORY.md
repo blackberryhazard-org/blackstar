@@ -34,3 +34,4 @@
 * Refactoring AI Plugins:
   * We migrated text-generation commands from a monolithic `text-generation.js` file into specific `gemini.js` and `claude.js` files under `wa/plugins/ai`. Unsupported models (deepseek, glm, etc.) were deliberately removed as requested.
   * We updated `sawit-utils` to version `0.3.0` and now rely on its specific functions (`escapeHTML`, `looksLikeCode`, `lexcode`), eliminating internal equivalents from `lib/ai-helper.js`.
+  * Further deprecated `lib/Request.js` entirely in favor of directly importing request functions (`lexcode`, `nexray`, `zenzxz`, etc.) from `sawit-utils`. Over 70 files updated.
